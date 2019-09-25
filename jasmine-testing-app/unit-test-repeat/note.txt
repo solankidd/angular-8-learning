@@ -1,0 +1,39 @@
+- Karma is test runner
+- Jasmine is testing framework ( behavior-driven development framework )
+  - It does not require DOM
+
+STEPS:
+- npm init
+  {
+    "name": "test",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "body-parser": "^1.19.0",
+      "express": "^4.17.1",
+      "morgan": "^1.9.1",
+      "path": "^0.12.7"
+    }
+  }
+- npm install express body-parser morgan path --save (server data)
+
+- now add configs to server.js
+
+- npm install karma karma-jasmine jasmine-core karma-chrome-launcher --save-dev
+- npm install angular angular-ui-router angular-mocks --save-dev
+- karma init
+
+
+
+EXTRA NOTE:
+- It's important to remember that our tests are testing expectations and not the actual implementation of our code.
+
+
+WHERE YOU REACHED?
+Testing an Angular Factory and a Real API Endpoint
