@@ -1,0 +1,16 @@
+<div style="border:3px solid">
+  app servers <br>
+  <!-- <input type="text" class="form-control" (input)="onUpdateServerName($event)"> -->
+  <input type="text" class="form-control" [(ngModel)]="serverName">
+  <br>
+  <!-- <button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateServer()">Add Server</button> -->
+  <button class="btn btn-primary" [disabled]="!allowNewServer && serverName == ''" (click)="onCreateServer()">Add Server</button>
+  <p *ngIf="serverCreated else noServer" [innerText]="serverCreationStatus"></p>
+  <ng-template #noServer>
+    <p>No server</p>
+  </ng-template>
+  <div style="border:1px solid black; margin: 5px; padding: 5px ">
+    <app-server *ngFor="let server of servers; let i = index"></app-server>
+  </div>
+</div>
+<br>
