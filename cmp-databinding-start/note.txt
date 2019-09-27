@@ -1,0 +1,12 @@
+- how to pass data to other component?
+  - go to app component
+
+  - <app-cockpit [serverElements]="serverElementsAppCmp"></app-cockpit>
+  - here serverElementsAppCmp is part of app comp ts
+  - serverElements is part of app-cockpit component
+  - so from app-cockpit.ts will update serverElements, serverElements is connected to
+    serverElementsAppCmp so parent will know that cockpit updated the array.
+
+  - similarly,
+    - app-server-element is having 'element' property
+    - app-server-element is getting serverElement from app component
