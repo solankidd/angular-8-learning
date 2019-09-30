@@ -1,9 +1,13 @@
 <div class="panel panel-default">
-  <div class="panel-heading">{{ element.name }} {{ aliasInside }}</div>
+  <div class="panel-heading">{{ element.name }} <br> {{ aliasInside }}</div>
   <div class="panel-body">
-    <p>
+
+    <!-- when you pass it from outside, you can put following -->
+    <ng-content></ng-content>
+
+    <!-- we want to move this out side, we will pass it from app.component <p>
       <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
       <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
-    </p>
+    </p> -->
   </div>
 </div>

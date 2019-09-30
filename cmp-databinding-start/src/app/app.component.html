@@ -12,6 +12,10 @@
         *ngFor="let serverElement of serverElementsAppCmp"
         [element]="serverElement"
         aliasOutside="Alias test">
+        <p>
+          <strong *ngIf="serverElement.type === 'server'" style="color: red">server: {{ serverElement.content }}</strong>
+          <em *ngIf="serverElement.type === 'blueprint'">blueprint: {{ serverElement.content }}</em>
+        </p>
       </app-server-element>
     </div>
   </div>

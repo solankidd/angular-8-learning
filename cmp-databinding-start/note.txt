@@ -73,3 +73,64 @@ STYLES:
     - Emulated is default which will emulate shadow dom technology with angular8
     - ShadowDom will use browser's dom shadow technology which may not be supported by all browser
 
+- LOCAL TEMPLATE REF (72)
+- Here it can only be used inside template not in typescript file
+- so in html template <input type="text" class="form-control" #serverNameInput>, we can give like
+  this ( #serverNameInput ) it will serve as id of input
+- then we can pass it as
+  - <button (click)="onAddServer(serverNameInput)">Add Server</button>
+  - now inside function we will get actual input dom element
+  - we can do "serverNameInput.value" inside function lie:
+    - onAddServer(nameInput) {  console.log( nameInput.value ) }
+
+- TEMPLATE ELEMENT IN TS file
+  - like above LOCAL TEMPLATE REF you can put
+   - <input type="text" class="form-control" #serverNameInput>
+   - now at initial level in ts file you can select it by:
+    - @ViewChild('serverContentInput', {static: true}) serverContentInput: ElementRef;
+    - now you can read it in ts file by this.serverContentInput.nativeElement.value
+  - this is just another way of keeping ref as variable instead of passing it to function
+  - also never access elements directly like this.serverContentInput.nativeElement.value = 'something'
+    it is not recommended
+
+- Pass html from outside component
+  - you can call like following
+    - <app-server-element
+        *ngFor="let serverElement of serverElementsAppCmp"
+        [element]="serverElement"
+        aliasOutside="Alias test">
+        <p>
+          <strong *ngIf="serverElement.type === 'server'" style="color: red">server: {{ serverElement.content }}</strong>
+          <em *ngIf="serverElement.type === 'blueprint'">blueprint: {{ serverElement.content }}</em>
+        </p>
+      </app-server-element>
+
+    - now inside component you can write ng-content tag like:
+    <div class="panel-body">
+      <ng-content></ng-content>
+    </div>
+
+    - it will place passed html inside ng-content tag
+
+----------------------------
+COMPONENT LIFE CYCLE
+----------------------------
+ngOnChanges: Called after a bound input property changes
+ngOnInit: Called once the component is initialized
+ngDoCheck: Called during every change detection run [template change, click like if anything changes]
+ngAfterContentInit: Called after content (ng-content) has been projected into view
+ngAfterContentChecked: Called every time the projected content has been checked
+ngAfterViewInit: Called after the component’s view (and child views) has been initialized
+ngAfterViewChecked: Called every time the view (and child views) have been checked
+ngOnDestroy: Called once the component is about to be destroyed
+
+
+
+
+
+
+
+
+
+
+
