@@ -1,11 +1,18 @@
 <div class="container">
-  <app-cockpit [serverElements]="serverElementsAppCmp"></app-cockpit>
+  <!-- #normalApproachWithoutEvent <app-cockpit [serverElements]="serverElementsAppCmp"></app-cockpit> -->
+  <app-cockpit
+    [serverElements]="serverElementsAppCmp"
+    (serverCreatedAlias)="onServerAddedInsideCockpit($event)"
+    (bluePrintCreated)="onBlueprintAddedInsideCockpit($event)">
+  </app-cockpit>
   <hr />
   <div class="row">
     <div class="col-xs-12">
       <app-server-element
-      *ngFor="let serverElement of serverElementsAppCmp"
-      [element]="serverElement"></app-server-element>
+        *ngFor="let serverElement of serverElementsAppCmp"
+        [element]="serverElement"
+        aliasOutside="Alias test">
+      </app-server-element>
     </div>
   </div>
 </div>

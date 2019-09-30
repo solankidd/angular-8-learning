@@ -10,3 +10,66 @@
   - similarly,
     - app-server-element is having 'element' property
     - app-server-element is getting serverElement from app component
+
+  - alias:
+    - go to app-component
+    - check <app-server-element
+      *ngFor="let serverElement of serverElementsAppCmp"
+      [element]="serverElement" aliasOutside="Alias test"></app-server-element>
+    - here, aliasOutside is parameter we are passing to app-server-element
+    - app-server-element ts file have @Input('aliasOutside') aliasInside;
+    - so from outside it will be passed as aliasOutside and from inside component we can refer as
+      aliasInside
+
+  - custom event  emit
+    - in cockpit we created events
+      - @Output() serverCreated = new EventEmitter<{ serverName: string; serverContent: string }>();
+      - @Output() bluePrintCreated = new EventEmitter<{ serverName: string; serverContent: string }>();
+    - which will emit the newly added data
+    - in cockpit we have buttons to add-server and add-bluePrintCreated
+    - on click of that buttons we will emit above event
+      - onAddServer() {
+        // we are emitting our event and giving data
+        this.serverCreated.emit({
+          serverName: this.newServerName,
+          serverContent: this.newServerContent
+        });
+      }
+    - now we will need to listen this event in main app component
+     - now app component have app-cockpit component
+     - we will add app-cockpit event name into it like:
+      - <app-cockpit (serverCreated)="onServerAddedInsideCockpit($event)"></app-cockpit>
+      - serverCreated is event emitted from cockpit
+      - whenever serverCreated is emitted, onServerAddedInsideCockpit will be called
+      - onServerAddedInsideCockpit is placed inside app.component
+      - so child component(cockpit) is emitting event and parent component(app) is listening it
+      - you can put this ( <app-cockpit (serverCreated)="onServerAddedInsideCockpit($event)"></app-cockpit> ) in
+        cockpit component only because this is the component which is emitting event
+      - you can not bind this event in other component, because that component is not emitting this event
+    - THIS IS HOW FLOW IS WORKING
+      - 1. emit event from cockpit
+      - 2. listen event in app.component by attaching app.component function to parameters of cockpit component
+      - now whenever cockpit component add button is hit it will emit event
+        as app component is listening it, it will execute the function on event
+
+STYLES:
+  - css style will be applied to particular component where it is written
+  - if you put style p{ color: blue } inside app.component.css it will not apply to other component
+  - angular selects it by applying dynamic attribute to component
+  - like p['_ngContent-ejo-2']{ color: blue } like lightning UI
+
+  - you can apply GLOBAL styles by putting it to '\src\styles.css'
+   - ref of this can be found in angular.json file
+
+  - you can disable this  behavior by adding parameter in component decorator
+   - like
+    @Component({
+      selector: 'app-root',
+      templateUrl: './app.component.html',
+      styleUrls: ['./app.component.css'],
+      encapsulation: ViewEncapsulation.None // this one
+    })
+    - none will not apply this shadow dom thing
+    - Emulated is default which will emulate shadow dom technology with angular8
+    - ShadowDom will use browser's dom shadow technology which may not be supported by all browser
+
