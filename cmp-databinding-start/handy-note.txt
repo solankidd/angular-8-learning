@@ -1,0 +1,3 @@
+SOME SYNTAXES:
+- @Input() recipeOut: Recipe;
+- @Output() startEvent = new EventEmitter<number>();
