@@ -1,4 +1,13 @@
 <div class="container">
+
+
+  <div style="border:2px solid">
+      <app-game-control (startEvent)="onStartEvent($event)"></app-game-control>
+      <app-odd [count]="this.numFromGameControl"></app-odd>
+      <app-even [count]="this.numFromGameControl"></app-even>
+  </div>
+
+
   <!-- #normalApproachWithoutEvent <app-cockpit [serverElements]="serverElementsAppCmp"></app-cockpit> -->
   <app-cockpit
     [serverElements]="serverElementsAppCmp"
@@ -8,11 +17,14 @@
   <hr />
   <div class="row">
     <div class="col-xs-12">
+      <button (click)="changeFirstElementName()" class="btn btn-primary">Change first element</button>
+      <button (click)="destroyElement()" class="btn btn-danger">Destroy</button>
       <app-server-element
         *ngFor="let serverElement of serverElementsAppCmp"
         [element]="serverElement"
-        aliasOutside="Alias test">
-        <p>
+        aliasOutside="Alias test"
+        [name]="serverElement.name">
+        <p #contentParagraph>
           <strong *ngIf="serverElement.type === 'server'" style="color: red">server: {{ serverElement.content }}</strong>
           <em *ngIf="serverElement.type === 'blueprint'">blueprint: {{ serverElement.content }}</em>
         </p>

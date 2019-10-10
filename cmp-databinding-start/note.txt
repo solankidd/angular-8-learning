@@ -93,6 +93,14 @@ STYLES:
   - also never access elements directly like this.serverContentInput.nativeElement.value = 'something'
     it is not recommended
 
+  - we have contentChild as well
+    - we passed something in ngContent from app component
+    - means from app.component we are passing html inside server-element component
+    - we have ngContent inside server-element component, where passed html is populating
+    - now when something is populating inside ngContent, we can access it by contentChild
+    - it is similar to viewChild
+
+
 - Pass html from outside component
   - you can call like following
     - <app-server-element
@@ -115,14 +123,39 @@ STYLES:
 ----------------------------
 COMPONENT LIFE CYCLE
 ----------------------------
-ngOnChanges: Called after a bound input property changes
-ngOnInit: Called once the component is initialized
-ngDoCheck: Called during every change detection run [template change, click like if anything changes]
-ngAfterContentInit: Called after content (ng-content) has been projected into view
-ngAfterContentChecked: Called every time the projected content has been checked
-ngAfterViewInit: Called after the component’s view (and child views) has been initialized
-ngAfterViewChecked: Called every time the view (and child views) have been checked
-ngOnDestroy: Called once the component is about to be destroyed
+AT TIME OF INIT OF COMPONENT:
+
+- ngOnChanges: Called after a bound input property changes, at time of creation as well
+  - this will receive all @input or @output tagged elements
+- ngOnInit: Called once the component is initialized [it will run after constructor]
+- ngDoCheck: Called during every change detection run [template change, click like if anything changes]
+  - whenever angular checks for any changes (like click, promise)
+  - like, when you want to change something which angular is not picking up
+- ngAfterContentInit: Called after content (ng-content) has been projected into view
+  - when we inject html via ng content
+- ngAfterContentChecked: Called every time the projected content has been checked
+  -
+- ngAfterViewInit: Called after the component’s view (and child views) has been initialized
+- ngAfterViewChecked: Called every time the view (and child views) have been checked
+- ngOnDestroy: Called once the component is about to be destroyed
+
+- when you try to access some element with viewChild
+  - you can access full element inside following hooks
+    - ngAfterViewInit
+    - ngAfterViewChecked
+
+first constructor will be called, after that above hooks will come into picture.
+
+-- how to remember:
+  ngOnChanges
+  ngOnInit
+  ngDoCheck
+  ngAfterContentInit
+  ngAfterContentChecked
+  ngAfterViewInit
+  ngAfterViewChecked
+  ngOnDestroy
+--
 
 
 

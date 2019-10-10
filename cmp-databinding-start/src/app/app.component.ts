@@ -7,7 +7,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
   // encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  serverElementsAppCmp = [{ type: 'server', name: 'test server d', content: 'just content!' }];
+  serverElementsAppCmp = [{ type: 'server', name: 'test server 1', content: 'just content!' }];
+  numFromGameControl = 1;
 
   onServerAddedInsideCockpit(serverData: { serverName: string; serverContent: string }) {
     this.serverElementsAppCmp.push({
@@ -25,7 +26,17 @@ export class AppComponent {
     });
   }
 
-  onTest(serverData: { serverName: string; serverContent: string }) {
-    console.log(serverData);
+  changeFirstElementName() {
+    this.serverElementsAppCmp[0].name = 'test server 1 update';
   }
+
+  destroyElement() {
+    this.serverElementsAppCmp.splice(0, 1);
+  }
+
+  // START: game control task
+  onStartEvent(data: number) {
+    this.numFromGameControl = data;
+  }
+  // END: game control task
 }
