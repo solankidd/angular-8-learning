@@ -1,0 +1,5 @@
+## Ignore Visual Studio temporary files
+
+#packages
+node_modules/
+DSP-UI/node_modules/
