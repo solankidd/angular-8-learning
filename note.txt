@@ -229,6 +229,27 @@ DIRECTIVES:
   - affect a whole area in the DOM (elements get added/removed)
   - like *ngIf or *ngFor
 
+- Directive decorator
+  - @Directive({
+      selector: '[appBasicHighlight]' // generally camel case, this will be identified by attribute
+    })
+  - By adding this below, we will get access of element where we attached our directive
+  export class BasicHighlightDirective implements OnInit {
+    constructor(private elementRef: ElementRef) {}
+    ngOnInit() {
+      this.elementRef.nativeElement.style.backgroundColor = 'green';
+    }
+  }
+- How to add?
+ - go to app.module
+ - import directive file on the top
+ - add directive ref inside declarations
+ - Sample
+    declarations: [
+      AppComponent,
+      BasicHighlightDirective
+    ]
+
 
 
 
