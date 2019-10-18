@@ -259,6 +259,12 @@ DIRECTIVES:
   @HostListener('mouseenter') mouseover(eventData: Event) {
     this.renderer.setStyle(this.eleRef.nativeElement, 'background-color', 'blue');
   }
+- we can omit renderer as well by Using HostBinding to Bind to Host Properties
+- like
+  - @HostBinding('style.backgroundColor') backgroundColor: string; // access style.background as backgroundColor
+  - @HostListener('mouseenter') mouseover(eventData: Event) {
+      this.backgroundColor = 'blue'; // this will directly assign value to style
+    }
 
 
 
