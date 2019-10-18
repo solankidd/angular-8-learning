@@ -249,6 +249,16 @@ DIRECTIVES:
       AppComponent,
       BasicHighlightDirective
     ]
+- For better element referencing we should not use ElementRef instead we can use renderer (compare BasicHighlightDirective vs BetterHighlightDirective)
+  - why renderer is good?
+    - is not limited to browser
+    - it also runs inside service workers  (where you might not have access to dom)
+- We can make reactive directive as well via @HostListener
+- like following:
+  mouseenter/mouseleave or other events:
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+    this.renderer.setStyle(this.eleRef.nativeElement, 'background-color', 'blue');
+  }
 
 
 
