@@ -265,6 +265,8 @@ DIRECTIVES:
   - @HostListener('mouseenter') mouseover(eventData: Event) {
       this.backgroundColor = 'blue'; // this will directly assign value to style
     }
+- parameterized directive
+  - now you can pass params via @Input (check BetterHighlightDirective) (97. binding directive Properties)
 
 
 

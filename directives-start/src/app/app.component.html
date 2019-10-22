@@ -26,7 +26,12 @@
       </ul>
 
       <p appBasicHighlight>Style me</p>
-      <p appBetterHighlight>Style me</p>
+      <p appBetterHighlight [defaultBgColor]="'yellow'" [highlightBgColor]="'red'">Style me</p>
+      <!--
+        OR
+        both are valid
+        <p appBetterHighlight defaultBgColor="yellow" highlightBgColor="red">Style me</p>
+       -->
     </div>
   </div>
 </div>
