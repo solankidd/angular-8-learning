@@ -228,6 +228,9 @@ DIRECTIVES:
   - look like a normal html attribute but have a leading * (for desugaring)
   - affect a whole area in the DOM (elements get added/removed)
   - like *ngIf or *ngFor
+    - behind the scenes * is converted to something else, there is no start operator
+    - you can use *ngIf in normal html or
+      - you can use [ngIf] oin ng-template
 
 - Directive decorator
   - @Directive({
