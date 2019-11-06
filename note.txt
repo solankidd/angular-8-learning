@@ -279,7 +279,26 @@ DIRECTIVES:
   <p *ngSwitchDefault>Value is Default</p>
 </div>
 
-
+- Put code of toggle class in dropdown directive
+ - what I thought?
+  - Add click event HostListener
+  - take renderer and add class and remove based on isOpen flag like below
+   - constructor(private eleRef: ElementRef, private renderer: Renderer2) {}
+   - @HostListener('click') toggleOpen(eventData: Event) {
+      this.isOpen = !this.isOpen;
+      if (this.isOpen) {
+       this.renderer.removeClass(this.eleRef.nativeElement, 'open');
+      } else {
+       this.renderer.addClass(this.eleRef.nativeElement, 'open');
+      }
+    }
+- what we can do with angular8
+  - we can do as per following:
+   @HostBinding ('class.open') isOpen: boolean = false;
+   @HostListener('click') toggleOpen(eventData: Event) {
+    this.isOpen = !this.isOpen;
+   }
+  dropdown directive
   -check es lint
 
 
