@@ -1,0 +1,7 @@
+nodejs program life cycle:
+node app.js -> start script -> parse code -> event loop
+entire node process uses one thread on computer is it running
+
+event loop: keeps on running
+here it is: server.listen(3000);
+which keeps on listening to requests
