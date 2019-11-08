@@ -1,0 +1,1 @@
+{"version":3,"file":"interfaces.js","sourceRoot":"","sources":["interfaces.ts"],"names":[],"mappings":"AAAA,mFAAmF;AACnF,kEAAkE;AAClE,gHAAgH;AAUhH,IAAI,IAAS,CAAC;AAEd,iEAAiE;AACjE,gDAAgD;AAEhD,wCAAwC;AACxC,IAAI,GAAG,EAAC,QAAQ,EAAE,KAAK,EAAE,QAAQ,EAAE,aAAa,EAAC,CAAC;AAQlD,IAAI,QAAQ,GAAY;IACpB,UAAU,EAAE,UAAU,KAAY;QAC9B,MAAM;IACV,CAAC;CACJ,CAAC"}
