@@ -5,3 +5,22 @@ entire node process uses one thread on computer is it running
 event loop: keeps on running
 here it is: server.listen(3000);
 which keeps on listening to requests
+
+--
+const server = http.createServer((req, res) => {
+  const url = req.url;
+  if(url === '/'){
+    res.write('<html>');
+    res.write('<head><title>Enter message</title></head>');
+    res.write('<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Send</button></form></body>');
+    res.write('</html>');
+    return res.end(); // this will not execute further, it will return from here only
+  }
+  console.log(req.url);
+  res.setHeader('Content-Type', 'text/html');
+
+});
+
+- request read in chunks
+STEAM -> request_body_part_1 - request_body_part_2 - request_body_part_3 - FULLY PARSED
+we can read it by using buffer
