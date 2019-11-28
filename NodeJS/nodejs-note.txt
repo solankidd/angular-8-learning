@@ -24,3 +24,38 @@ const server = http.createServer((req, res) => {
 - request read in chunks
 STEAM -> request_body_part_1 - request_body_part_2 - request_body_part_3 - FULLY PARSED
 we can read it by using buffer
+
+- NodeJs uses only one javascript thread (process in your OS)
+- FOR EX:
+ - we are using fs in nodejs code
+ - event loop is automatically started by nodejs when your program starts
+ - event loop is responsible for running code when certain event happens
+ - event loops handles only callbacks
+ - heavy lifting operations are handled by worker pool, so that operations are sent to worker pool
+ - worker pool is different from javascript code
+ - it runs on separate thread in OS
+ - so worker pool is totally detached from node javascript code. Event loop as well
+ - once worker from worker pool is done with its task. It will trigger callback of that particular operation
+ - EVENT LOOP:
+  - it goes into certain order
+  - it is basically a loop
+  - STEP 1: timers
+    - it executes timers if any pending (like setTimeout, setInterval)
+  - STEP 2: pending callbacks
+    - any pending callbacks
+  - STEP 3: poll
+    - nodejs will quickly look for new events or i/o events, if possible it will run its callback or function
+    - it will check if any timers are due to execute, if due it will go to STEP1: timers and do the stuff
+    - if not possible, it will register it as callback
+  - STEP 4: check
+    - now setImmediate callback will be execute in check phase
+    - it will execute immediate but only after any open callback
+  - STEP 5: close events
+    - if you have registered any close events, it will execute it
+
+  - Nodejs keeps refs (i.e. counter of registered callbacks)
+    - when it finishes any callback, it reduces the counter by 1
+    - when we create server, it keeps that ref in counter. Never removes it so it never exit
+      - it keeps at least one counter (so we will have at least one ref)
+      -
+
