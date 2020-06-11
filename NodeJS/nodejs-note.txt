@@ -1,3 +1,5 @@
+nodejs runs non blocking js code
+
 nodejs program life cycle:
 node app.js -> start script -> parse code -> event loop
 entire node process uses one thread on computer is it running
