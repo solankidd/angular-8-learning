@@ -1,0 +1,28 @@
+{
+  "name": "nodejs-app12-crud-operation-with-mongodb-expressjs",
+  "version": "1.0.0",
+  "description": "NodeJS application demo for CRUD operation using MongoDB and ExpressJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "NodeJS-App12-CRUD-operation-with-MongoDB-ExpressJS"
+  },
+  "keywords": [
+    "nodejs",
+    "crud",
+    "mongodb",
+    "mongoose",
+    "expressjs"
+  ],
+  "author": "rinkeshpatel22",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.5.3",
+    "mongoose-auto-increment": "^5.0.1",
+    "shortid": "^2.2.14"
+  }
+}
