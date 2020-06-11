@@ -58,4 +58,5 @@ we can read it by using buffer
     - when we create server, it keeps that ref in counter. Never removes it so it never exit
       - it keeps at least one counter (so we will have at least one ref)
       -
+  - in node js , when we export means from out side, it is readonly, you can't modify it
 
