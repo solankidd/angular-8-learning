@@ -64,3 +64,26 @@ we can read it by using buffer
 
   - basically it is callback and event driven approach
 
+
+Lecture 48: Errors
+
+- Syntax Errors: easy to find
+- Runtime Errors: 
+- Logical Errors:
+How to use debugger?
+- Go to run
+- Add configuration
+- Add launch config like:
+     {
+        "type": "node",
+        "request": "launch",
+        "name": "Launch Program",
+        "program": "${workspaceFolder}/Sample/app.js",
+        "skipFiles": [
+            "<node_internals>/**"
+        ]
+    }
+  - now if you want to use nodemon for debugger as well (becuase each time we can run debug manually)
+  
+- Run -> Start Debuging
+

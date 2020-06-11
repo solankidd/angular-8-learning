@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/Sample/app.js",
+            //"runtimeExecutable": "nodemon",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ]
+
+}

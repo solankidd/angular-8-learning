@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const requestHandler = (req, res) => {
   const url = req.url;
-  const method = req.method;
+  const method = req.method; 
   if(url === '/'){
     res.write('<html>');
     res.write('<head><title>Enter message</title></head>');
@@ -22,6 +22,7 @@ const requestHandler = (req, res) => {
       const parsedBody = Buffer.concat(body).toString();
       const message = parsedBody.split('=')[1];
       console.log(message);
+      fs.writeFileSync('message.txt', message);
       res.statusCode = 302;
       res.setHeader('Location', '/')
       return res.end(); // if we don't return, it will throw error
