@@ -60,3 +60,5 @@ we can read it by using buffer
       -
   - in node js , when we export means from out side, it is readonly, you can't modify it
 
+  - basically it is callback and event driven approach
+
