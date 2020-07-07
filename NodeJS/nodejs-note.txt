@@ -65,6 +65,12 @@ we can read it by using buffer
   - basically it is callback and event driven approach
 
 
+- You can use nodemon so everytime you update nodejs, you don't have to rerun the program. You just have to install it and run "nodemon app.js" or inside package json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },..
+
 Lecture 48: Errors
 
 - Syntax Errors: easy to find
@@ -86,4 +92,9 @@ How to use debugger?
   - now if you want to use nodemon for debugger as well (becuase each time we can run debug manually)
   
 - Run -> Start Debuging
+
+
+- Section 5 express js
+ - express js is all about middleware
+ - it allows to put your logic in multiple function before you send response
 
