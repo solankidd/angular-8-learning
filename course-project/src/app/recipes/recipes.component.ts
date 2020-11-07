@@ -14,7 +14,7 @@ export class RecipesComponent implements OnInit {
   ngOnInit() {
   }
 
-  onRecipeClicked(event) {
+  recipeItemClickedReceivedIntoRecipeMainComp(event) {
     this.selectedRecipe = event;
   }
 

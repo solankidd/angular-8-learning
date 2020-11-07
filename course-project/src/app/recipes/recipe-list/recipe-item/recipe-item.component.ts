@@ -8,15 +8,16 @@ import { Recipe } from '../../recipe.model';
 })
 export class RecipeItemComponent implements OnInit {
   @Input() recipeOut: Recipe;
-  @Output() recipeClicked = new EventEmitter<void>();
+  @Output() recipeItemClickedPassedToList = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  onRecipeClicked(recipe: Recipe) {
-    this.recipeClicked.emit(); // no need to pass recipe here
+  onRecipeItemClicked(recipe: Recipe) {
+    this.recipeItemClickedPassedToList.emit(); // no need to pass recipe here
+    // because in recipe-list.component.html we are passing from ngFor directly
   }
 
 }

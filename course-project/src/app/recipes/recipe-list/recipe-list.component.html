@@ -6,6 +6,6 @@
 <hr>
 <div class="row">
   <div class="col-xs-12">
-    <app-recipe-item (recipeClicked)="onRecipeClicked(recipe)" [recipeOut]="recipe" *ngFor="let recipe of recipes"></app-recipe-item>
+    <app-recipe-item (recipeItemClickedPassedToList)="recipeItemClickedReceivedIntoList(recipeFromNgFor)" [recipeOut]="recipeFromNgFor" *ngFor="let recipeFromNgFor of recipes"></app-recipe-item>
   </div>
 </div>

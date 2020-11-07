@@ -12,6 +12,11 @@ import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-it
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { DropDownDirective } from './shared/dropdown.directive';
+import { NineServiceStartComponent } from './nine-service-start/nine-service-start.component';
+import { AccountComponent } from './nine-service-start/account/account.component';
+import { NewAccountComponent } from './nine-service-start/new-account/new-account.component';
+import { AccountService } from './nine-service-start/account.service';
+import { LoggingService } from './nine-service-start/logging.service';
 
 @NgModule({
   declarations: [
@@ -23,14 +28,17 @@ import { DropDownDirective } from './shared/dropdown.directive';
     RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropDownDirective
+    DropDownDirective,
+    NineServiceStartComponent,
+    AccountComponent,
+    NewAccountComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AccountService, LoggingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

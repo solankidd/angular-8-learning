@@ -7,7 +7,7 @@ import { Recipe } from '../recipe.model';
   styleUrls: ['./recipe-list.component.scss']
 })
 export class RecipeListComponent implements OnInit {
-  @Output() recipeWasClicked = new EventEmitter<Recipe>();
+  @Output() recipeItemClickedPassedToRecipeMainComp = new EventEmitter<Recipe>();
   recipes: Recipe[] = [
     new Recipe(
       'Test Recipe 1',
@@ -24,7 +24,7 @@ export class RecipeListComponent implements OnInit {
 
   ngOnInit() {}
 
-  onRecipeClicked(recipe: Recipe) {
-    this.recipeWasClicked.emit(recipe);
+  recipeItemClickedReceivedIntoList(recipe: Recipe) {
+    this.recipeItemClickedPassedToRecipeMainComp.emit(recipe);
   }
 }

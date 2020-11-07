@@ -1,3 +1,16 @@
+----------------------------
+HTML TEMPLATE KEYWORDS
+
+- *ngIf
+- (featureSelected) => @Output
+- [serverElements] => @Input
+
+- [innerText]="allowNewServer" => property binding
+- (click)="onCreateServer()" => event binding
+
+
+----------------------------
+
 how to create project:
 1.
 
@@ -63,11 +76,31 @@ conclusion:
 - how to pass data to other component?
   - go to app component
 
-  - <app-cockpit [serverElements]="serverElementsAppCmp"></app-cockpit>
-  - here serverElementsAppCmp is part of app comp ts
-  - serverElements is part of app-cockpit component
-  - so from app-cockpit.ts will update serverElements, serverElements is connected to
-    serverElementsAppCmp so parent will know that cockpit updated the array.
+  - structure
+    - app-component
+    --- app-cockpit
+    Sample: 
+    <app-cockpit
+      [serverElements]="serverElementsAppCmp" ( => not in use inside app-cockpit)
+      (serverCreatedAlias)="onServerAddedInsideCockpit($event)"
+      (bluePrintCreated)="onBlueprintAddedInsideCockpit($event)">
+    </app-cockpit>
+
+  - here serverElementsAppCmp (this is array of object only) it is declared inside app-component.ts
+    [now not in use]
+    - serverElements is input for app-cockpit component
+    - if we update serverElementsAppCmp, it will reach to app-cockpit as input
+
+
+  - now bluePrintCreated is output in  app-cockpit
+    - app-cockpit have UI to add blue bluePrint
+    - when user hit 'Add Server Blueprint', app-cockpit will call bluePrintCreated, and emit some data putting inside it
+    - as bluePrintCreated is output, app-cockpit will pass it on to upper level
+    - on  app-component, we binded onBlueprintAddedInsideCockpit with bluePrintCreated
+    - so onBlueprintAddedInsideCockpit wil receive emitted data
+    - in app-component, when onBlueprintAddedInsideCockpit is called, inside that we will push new data into serverElementsAppCmp inside app-component itself
+    - now this array serverElementsAppCmp is used in app-component directly
+    - so app-cockpit is just container which is having form to create some objects and it is doing output of it, whatever function is binded there, that functino is receiving the emitted data
 
   - similarly,
     - app-server-element is having 'element' property
@@ -149,10 +182,10 @@ STYLES:
   - like above LOCAL TEMPLATE REF you can put
    - <input type="text" class="form-control" #serverNameInput>
    - now at initial level in ts file you can select it by:
-    - @ViewChild('serverContentInput', {static: true}) serverContentInput: ElementRef;
-    - now you can read it in ts file by this.serverContentInput.nativeElement.value
+    - @ViewChild('serverNameInput', {static: true}) serverNameInput: ElementRef;
+    - now you can read it in ts file by this.serverNameInput.nativeElement.value
   - this is just another way of keeping ref as variable instead of passing it to function
-  - also never access elements directly like this.serverContentInput.nativeElement.value = 'something'
+  - also never access elements directly like this.serverNameInput.nativeElement.value = 'something'
     it is not recommended
 
   - we have contentChild as well
@@ -169,6 +202,9 @@ STYLES:
         *ngFor="let serverElement of serverElementsAppCmp"
         [element]="serverElement"
         aliasOutside="Alias test">
+
+        => this portion is inside app-server-element
+        => so it will be ng-content for app-server-element's html template
         <p>
           <strong *ngIf="serverElement.type === 'server'" style="color: red">server: {{ serverElement.content }}</strong>
           <em *ngIf="serverElement.type === 'blueprint'">blueprint: {{ serverElement.content }}</em>
@@ -300,6 +336,71 @@ DIRECTIVES:
    }
   dropdown directive
   -check es lint
+
+- HOW DATA IS PASSED FROM CHILD TO PARENT:
+  - recipe item -> on click event => onRecipeItemClicked
+    - now it will emit the output recipeItemClickedPassedToList
+  - recipe list <recipe-item recipeItemClickedPassedToList> binded recipeItemClickedReceivedIntoList
+    - recipe list will emit recipeItemClickedPassedToRecipeMainComp
+  - in recipe component <recipe-list recipeItemClickedPassedToRecipeMainComp> binded with recipeItemClickedReceivedIntoRecipeMainComp
+  - now recipeItemClickedReceivedIntoRecipeMainComp will update selectedRecipe
+  - now on recipe component selectedRecipe will be passed to another component
+
+  - Summary
+    Item:
+      - (click) onRecipeItemClicked
+      - @Output() recipeItemClickedPassedToList
+
+    List:
+      - binded recipeItemClickedReceivedIntoList to output of item cmp
+      - @Output() recipeItemClickedPassedToRecipeMainComp
+    
+    Main:
+      - binded recipeItemClickedReceivedIntoRecipeMainComp to output of list cmp-> update selectedRecipe
+      - pass selectedRecipe to another component
+
+    in short:
+    - when child to parent passing?
+      - in child use output, in parent bind some function to that output
+      - in parent use output, in grand-parent bind some function to that output
+    - so use output at child level and use output untill you need the data to upper level
+
+
+:::::::::::::SERVICE Section9 : 106 Using Services & Dependency Injection:::::::::::::::::::
+
+- Hierarchical injector 
+  - Where we can inject services?
+  - AppModule (top): Same instance of service is available at application-wide
+  - AppComponent:  Same instance of service is available for all components (not for other services)
+  - Any other component: Same instance of service is available for component and its child componnet
+
+- We need to inform Angular that we need instance of service
+- How to inform Angular?
+  - Regular way (ref: new-account.component.ts)
+    - import that service on the top
+    - now in component inside providers you need to push this new service, so it will provide Angular this new service
+    - now you can assign this service to constructor in component ts file
+    - it will create instance for you
+    - Sample:
+      - import { LoggingService } from '../logging.service';
+      - providers: [LoggingService]
+      - constructor(private loggingService: LoggingService) {}
+      - use? this.loggingService.logStatusChange(accountStatus);
+  - Now at first I added account service to nine-service-start, account and new-account to all 3 components
+   - all of them were not getting the same instance, instead they were creating their own instances
+   - To overcome this, keep service in providers of top level component.
+   - And remove from providers list of account and new-account
+   - Now account and new-account will get the instance from top level component only
+
+- Now inject servie inside service
+  - To inject one service inside another
+  - We need to decalre that service at app.module level which is the toppest one
+  - So we can use that service in other service
+  - To do that, we need to put angular meta data like how we add on component like @Component({
+  - We can add @Injectable on top of service which will need some other service, Injectable means this is the service in which you can inject another one
+
+
+
 
 
 
