@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Recipe } from '../../recipe.model';
+import { RecipesService } from '../../recipes.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -7,17 +8,15 @@ import { Recipe } from '../../recipe.model';
   styleUrls: ['./recipe-item.component.scss']
 })
 export class RecipeItemComponent implements OnInit {
-  @Input() recipeOut: Recipe;
-  @Output() recipeItemClickedPassedToList = new EventEmitter<void>();
+  @Input() recipe: Recipe;
 
-  constructor() { }
+  constructor(private recipeService: RecipesService) { }
 
   ngOnInit() {
   }
 
   onRecipeItemClicked(recipe: Recipe) {
-    this.recipeItemClickedPassedToList.emit(); // no need to pass recipe here
-    // because in recipe-list.component.html we are passing from ngFor directly
+    this.recipeService.recipeSelected.emit(recipe);
   }
 
 }

@@ -412,6 +412,16 @@ DIRECTIVES:
     }
 
 
+- REFER ABOVE TITLE => - HOW DATA IS PASSED FROM CHILD TO PARENT:
+  - Here now we converted Recipe to service based (old one is inside recipes-binding folder )
+  - Now we have Recipe service, which gives list of Recipes to main Recipe component 
+  - In Recipe item comp. we emit selected via recipe-service recipeSelected
+  - recipeSelected is subscribed in main Recipe component so it passes the data to recipe-detail comp.
+  - Now it is much simpler
+
+- Subscrbe will be done under ngOnInit hook
+
+
 
 
 
