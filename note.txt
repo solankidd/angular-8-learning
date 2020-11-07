@@ -399,6 +399,18 @@ DIRECTIVES:
   - To do that, we need to put angular meta data like how we add on component like @Component({
   - We can add @Injectable on top of service which will need some other service, Injectable means this is the service in which you can inject another one
 
+- You can use emit in service as well
+  - in service.ts you can create emittor like => statusUpdated = new EventEmitter<string>(); 
+  - now in one component you can use, => this.accountService.statusUpdated.emit(status);
+  - in another component you can subscribe => like (inside constructor)
+    - constructor(private loggingService: LoggingService, private accountService: AccountService) {
+    this.accountService.statusUpdated.subscribe(
+        (status: string) => {
+          console.log(`Event by emit and subscribe: ${status}`);
+        }
+      );
+    }
+
 
 
 

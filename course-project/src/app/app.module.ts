@@ -15,8 +15,10 @@ import { DropDownDirective } from './shared/dropdown.directive';
 import { NineServiceStartComponent } from './nine-service-start/nine-service-start.component';
 import { AccountComponent } from './nine-service-start/account/account.component';
 import { NewAccountComponent } from './nine-service-start/new-account/new-account.component';
-import { AccountService } from './nine-service-start/account.service';
-import { LoggingService } from './nine-service-start/logging.service';
+
+// if not using providedIn we have to add as below and pass it into providers: []
+// import { AccountService } from './nine-service-start/account.service';
+// import { LoggingService } from './nine-service-start/logging.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,7 @@ import { LoggingService } from './nine-service-start/logging.service';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [AccountService, LoggingService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
