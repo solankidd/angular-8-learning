@@ -33,4 +33,8 @@ export class ShoppingEditComponent implements OnInit {
     //even if I use only 'recipes' here, it is working
     this.router.navigate(['recipes'], {relativeTo: this.activeRoute});
   }
+  loadRecipesWithQPandF() {
+    //even if I use only 'recipes' here, it is working
+    this.router.navigate(['recipes', 'dhaval', 'solanki'], {queryParams: {allowEdit:1}, fragment:'loading1'});
+  }
 }

@@ -1,3 +1,17 @@
+<div>
+Loaded text from name: {{name}} <br>
+Loaded text from name2: {{name2}} <br>
+Loaded text from qparam allow Edit: {{allowEdit}} <br>
+Loaded text from fragment: {{fragment}} <br>
+<br>
+<a 
+  [routerLink]="['/recipes','dhaval2','solanki2']"
+  [queryParams]="{allowEdit:'2'}"
+  [fragment]="'loading2'"
+>
+Load name:dhaval, name2:solanki
+</a>
+</div>
 <div class="row">
   <div class="col-md-5">
     <app-recipe-list></app-recipe-list>
