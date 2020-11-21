@@ -51,7 +51,7 @@ HTML TEMPLATE KEYWORDS
 
     - Now I want to move it as child of nineservice, what I will do is:
       { path: 'nineservice', component: NineServiceStartComponent, children:[
-        { path:':id', component: EditAccountComponent}
+        { path:':id', component: EditAccountComponent} // as this is child, <router-outlet></router-outlet>  will be on parent i.e. NineServiceStartComponent
       ]},
     - Now when I click on account list item, it will throw an error, because it does not know, where to load child component in main component
     - So in main component (nine-service-start.component.html) added <router-outlet></router-outlet> 
