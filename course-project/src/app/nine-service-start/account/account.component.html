@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12 col-md-8 col-md-offset-2">
-    <h5>{{ account.name }}</h5>
+    <a [routerLink]="['/nineservice', account.id]" >{{ account.name }}</a>
     <hr>
     <p>This account is {{ account.status }}</p>
     <button class="btn btn-default" (click)="onSetTo('active')">Set to 'active'</button>

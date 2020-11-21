@@ -16,6 +16,7 @@ import { NineServiceStartComponent } from './nine-service-start/nine-service-sta
 import { AccountComponent } from './nine-service-start/account/account.component';
 import { NewAccountComponent } from './nine-service-start/new-account/new-account.component';
 import { RouterModule, Routes } from '@angular/router';
+import { EditAccountComponent } from './nine-service-start/edit-account/edit-account.component';
 
 // if not using providedIn we have to add as below and pass it into providers: []
 // import { AccountService } from './nine-service-start/account.service';
@@ -23,8 +24,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes : Routes = [
   { path: 'recipes', component: RecipesComponent},
+  { path: 'recipes/:name/:name2', component: RecipesComponent},
   { path: 'shoplist', component: ShoppingListComponent},
-  { path: 'nineservice', component: NineServiceStartComponent}
+  { path: 'nineservice', component: NineServiceStartComponent, children:[
+    { path:':id', component: EditAccountComponent}
+  ]},
+  // we can put this one inside nineservice route to make it child:  { path:'nineservice/:id', component: EditAccountComponent}
 ]
 
 @NgModule({
@@ -40,7 +45,8 @@ const appRoutes : Routes = [
     DropDownDirective,
     NineServiceStartComponent,
     AccountComponent,
-    NewAccountComponent
+    NewAccountComponent,
+    EditAccountComponent
   ],
   imports: [
     BrowserModule,

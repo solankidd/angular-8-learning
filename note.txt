@@ -21,6 +21,41 @@ HTML TEMPLATE KEYWORDS
       - constructor(private router: Router, private activeRoute: ActivatedRoute) {}
       - this.router.navigate(['recipes'], {relativeTo: this.activeRoute});
       - Now it will be invalid again
+  - Multiple routes values with query param and fragment
+    - app.module: { path: 'recipes/:name/:name2', component: RecipesComponent},
+    - html:
+      <a 
+        [routerLink]="['/recipes','dhaval2','solanki2']"
+        [queryParams]="{allowEdit, '1'}"
+        [fragment]="'loading'"
+      >
+        Load name:dhaval, name2:solanki
+      </a>
+    - in ts it would be: this.router.navigate(['recipes'], {queryParams: {allowEdit:1, fragment:'loading'} });
+    - final link will be: http://localhost:4200/recipes/dhaval2/solanki2?allowEdit=1#loading
+    - to read it you can use observable
+      this.paramSubscription = this.activeRoute.params
+      .subscribe(
+        (updatedParams: Params)=>{
+          this.name = updatedParams['name'];
+          this.name2 = updatedParams['name2'];
+        }
+      )
+  
+  - child routes:
+    - Added one component, which is inside nineservice
+    - in app module as: { path:'nineservice/:id', component: EditAccountComponent}
+    - now it will be loaded with http://localhost:4200/nineservice/3
+    -  EditAccountComponent will read id i.e. 3 and from account service it will find account with id 3
+    - It will print name of account
+
+    - Now I want to move it as child of nineservice, what I will do is:
+      { path: 'nineservice', component: NineServiceStartComponent, children:[
+        { path:':id', component: EditAccountComponent}
+      ]},
+    - Now when I click on account list item, it will throw an error, because it does not know, where to load child component in main component
+    - So in main component (nine-service-start.component.html) added <router-outlet></router-outlet> 
+    - As EditAccountComponent is child of nine-servie, it will load that inside router-outlet
 
 
 
