@@ -1,4 +1,4 @@
-<a href="#" class="list-group-item clearfix" (click)="onRecipeItemClicked(recipe)">
+<div class="list-group-item clearfix" (click)="onRecipeItemClicked(recipe)">
   <div class="pull-left">
     <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
     <p class="list-group-item-text">{{ recipe.description }}</p>
@@ -12,4 +12,4 @@
     />
     <!-- or src="{{ recipe.imagePath }}" -->
   </span>
-</a>
+</div>

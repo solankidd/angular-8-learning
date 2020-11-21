@@ -8,9 +8,15 @@
     </div>
     <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
       <ul class="nav navbar-nav">
-        <li><a href="#" (click)="onSelect('recipe')">Recipes</a></li>
-        <li><a href="#" (click)="onSelect('shopping-list')">Shopping list</a></li>
-        <li><a href="#" (click)="onSelect('nine-service-start')">Nine service start</a></li>
+        <!-- without  routerLinkActiveOptions it will mark home as always active
+             because it will find "/" always
+             To solve this use [routerLinkActiveOptions]="{exact:true}", which will tell angular to find exact path
+        -->
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/">Home</a></li>
+        <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
+        <li routerLinkActive="active"><a routerLink="/shoplist">Shopping list</a></li>
+        <!-- Here we can bind as property as well, value in array is helpful to provide some complex paths  -->
+        <li routerLinkActive="active"><a [routerLink]="['/nineservice']">Nine service start</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" appDropDown>

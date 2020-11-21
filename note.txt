@@ -7,6 +7,23 @@ HTML TEMPLATE KEYWORDS
 
 - [innerText]="allowNewServer" => property binding
 - (click)="onCreateServer()" => event binding
+- Routes: 
+  - By link
+    - You are at some child level: http://localhost:4200/shoplist
+    - Invalid: Inside shop list you can't put link like <a routerLink="recipes">Recipes</a>, this will find http://localhost:4200/shoplist/recipes
+    - Valid: Inside shop list you can't put link like <a routerLink="/recipes">Recipes</a>, this will find http://localhost:4200/shoplist/recipes
+    - Valid: Inside shop list you can't put link like <a routerLink="../recipes">Recipes</a>, this will find http://localhost:4200/recipes
+  - By ts
+    - Valid: this.router.navigate(['recipes']); above it is Invalid
+    - Because, here angular don't know relative path
+    - Sometimes, we need to provide relative path because recipes can exist inside other parent route as well
+    - To achive that
+      - constructor(private router: Router, private activeRoute: ActivatedRoute) {}
+      - this.router.navigate(['recipes'], {relativeTo: this.activeRoute});
+      - Now it will be invalid again
+
+
+
 
 
 ----------------------------
@@ -414,13 +431,55 @@ DIRECTIVES:
 
 - REFER ABOVE TITLE => - HOW DATA IS PASSED FROM CHILD TO PARENT:
   - Here now we converted Recipe to service based (old one is inside recipes-binding folder )
-  - Now we have Recipe service, which gives list of Recipes to main Recipe component 
-  - In Recipe item comp. we emit selected via recipe-service recipeSelected
-  - recipeSelected is subscribed in main Recipe component so it passes the data to recipe-detail comp.
+
+  - Recipe service =gives> list of Recipes to recipe list component 
+  - Recipe item comp =emit> selected recipeService.recipeSelected
+  - recipeSelected is subscribed in main Recipe component
+  - Main Recipe component passes the data to recipe-detail comp.
   - Now it is much simpler
+  -- Summary
+  - recipe.service <= list of recipes
+  - recipe item emit recipeSelected
+  - recipeSelected subscribed in main
+  - main pass to recipe component
+
+  -- Now send ingredients to shopping list
+  - Recipe details comp => (when click on add to shopping list) this.recipesService.addToShoppingList(this.recipe.ingredients)
+  - Recipe service will call shopping list service ( this.shoppingListService.addIngredients(ingredients) )
+  - Shopping list service will emit this.ingredientsChanged.emit(this.ingredients.slice());
+  - Shopping list component is subscribed with above emit
+  -- like 
+    this.shoppingListService.ingredientsChanged
+    .subscribe((ingredients : Ingredient[]) => {
+      this.ingredients = ingredients;
+    });
+  - Shppping list comp will populate list from  this.ingredients
 
 - Subscrbe will be done under ngOnInit hook
 
+-- Routes
+How to add?
+- in app.module
+  - import { RouterModule, Routes } from '@angular/router'; in app.module
+  - const appRoutes : Routes = [
+    { path: 'recipes', component: RecipesComponent},
+    { path: 'shoplist', component: ShoppingListComponent},
+    { path: 'nineservice', component: NineServiceStartComponent}
+  ]
+  -   imports: [
+    RouterModule.forRoot(appRoutes)
+  ]
+  - html: <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
+
+
+- routerLinkActive="active" is used to provide some css class to clicked link
+- routerLinkActiveOptions
+  - when we have path call '/',  it will mark home as always active, because it will find "/" always,
+  - To solve this use [routerLinkActiveOptions]="{exact:true}", which will tell angular to find exact path
+- Dynamically load: 
+  - import { Router } from '@angular/router';
+  - constructor(private router: Router) {}
+  - this.router.navigate(['/recipes']);
 
 
 
